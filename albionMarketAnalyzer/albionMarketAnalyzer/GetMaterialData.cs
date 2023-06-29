@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace albionMarketAnalyzer
         public Dictionary<string, DateTime> MaterialLastUpdated { get; set; } = new Dictionary<string, DateTime>();
         public Dictionary<string, double> MaterialPrices { get; set; } = new Dictionary<string, double>();
         public Dictionary<string, string> MaterialLocations { get; set; } = new Dictionary<string, string>();
+        private const int dataInCityCount = 4;
 
         public async Task PopulateMaterialData(List<CraftableItem> items)
         {
@@ -35,9 +37,9 @@ namespace albionMarketAnalyzer
             {
                 var materialMarketData = marketData.Where(m => m.item_id == material && m.city != "Black Market" && m.sell_price_min > 0).ToList();
 
-                if (materialMarketData.Where(m => m.sell_price_min > 0).GroupBy(m => m.city).Count() < 3)
+                if (materialMarketData.Where(m => m.sell_price_min > 0).GroupBy(m => m.city).Count() < dataInCityCount)
                 {
-                    Console.WriteLine($"Data for {material} is not reliable as it is listed in fewer than 4 cities.");
+                    Console.WriteLine($"Data for {material} is not reliable as it is listed in fewer than {dataInCityCount} cities.");
                     continue;
                 }
 

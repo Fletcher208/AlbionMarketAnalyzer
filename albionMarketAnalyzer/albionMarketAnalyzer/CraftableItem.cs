@@ -23,7 +23,7 @@ namespace albionMarketAnalyzer
         public Dictionary<string, double> BestMaterialPrices { get; set; }
         public double SellingPrice { get; set; }
         public string BestSellingLocation { get; set; }
-
         public DateTime LastUpdated { get; set; }
+        public bool IsValid { get; set; } = true;
     }
 }

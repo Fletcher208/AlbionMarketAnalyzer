@@ -9,33 +9,34 @@ namespace albionMarketAnalyzer
 {
     public class CalculateItemData
     {
+        private const int dataInCityCount = 3;
         public async Task CalculateCraftingCosts(List<CraftableItem> items, Dictionary<string, double> MaterialPrices, Dictionary<string, string> MaterialLocations)
         {
-            foreach (var item in items)
-            {
-                // Skip calculating crafting costs for materials
-                if (item.ItemId.Contains("METALBAR") || item.ItemId.Contains("PLANKS") || item.ItemId.Contains("ARTEFACT") || item.ItemId.Contains("CLOTH") || item.ItemId.Contains("LEATHER")) continue;
-
-                Console.WriteLine($"Calculating costs for {item.ItemId}");
-
-                foreach (var material in item.RequiredMaterials)
+                bool allMaterialsHavePrice = true;
+                foreach (var item in items)
                 {
-                    if (!MaterialPrices.ContainsKey(material.Key) || MaterialPrices[material.Key] == 0)
+                    double totalCraftingCost = 0;
+
+                    foreach (var material in item.RequiredMaterials)
                     {
-                        Console.WriteLine($"No price data for {material.Key}");
-                        continue;
+                        if (MaterialPrices.TryGetValue(material.Key, out double price))
+                        {
+                            totalCraftingCost += price * material.Value;
+                            item.BestMaterialPrices[material.Key] = price;
+                            item.BestLocations[material.Key] = MaterialLocations[material.Key];
+                        }
+                        else
+                        {
+                            item.IsValid = false; // set the item as invalid
+                            break;
+                        }
                     }
 
-                    double materialCost = MaterialPrices[material.Key] * material.Value;
-                    item.CraftingCost += materialCost;
-                    item.BestLocations[material.Key] = MaterialLocations[material.Key];
-                    item.BestMaterialPrices[material.Key] = MaterialPrices[material.Key];
-
-                    Console.WriteLine($"Added {materialCost} to crafting cost for {material.Value} {material.Key}. Total cost is now {item.CraftingCost}");
+                    if (item.IsValid)
+                    {
+                        item.CraftingCost = totalCraftingCost;
+                    }
                 }
-
-            }
-
             await CalculateSellingPrice(items);
         }
 
@@ -49,9 +50,9 @@ namespace albionMarketAnalyzer
             foreach (var item in items)
             {
                 var itemMarketData = marketData.Where(m => m.item_id == item.ItemId && m.city != "Black Market");
-                if (itemMarketData.Where(m => m.sell_price_min > 0).GroupBy(m => m.city).Count() < 4)
+                if (itemMarketData.Where(m => m.sell_price_min > 0).GroupBy(m => m.city).Count() < dataInCityCount)
                 {
-                    Console.WriteLine($"Data for {item.ItemId} is not reliable as it is listed in fewer than 4 cities.");
+                    Console.WriteLine($"Data for {item.ItemId} is not reliable as it is listed in fewer than {dataInCityCount} cities.");
                     continue;
                 }
 
