@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eT/V3SRa0AUml6KYpRYvZVv5MXnSeRei8bRjNH/mKQW+sLIrMRqyCF4Zrp9qKdZPM1qKJjwxKhkdf9CaSjmrAQ==",
+  "dgSpecHash": "v/1o6o7QE+ghXivBEkyWU/ScHvdW9avFe1k3Cn69YZrUH/BVcs07lDz7psibfEGCIgQl5IpdGXUKMEev4kB2Fg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
+  "projectFilePath": "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fletcher\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],

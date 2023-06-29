@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj": {}
+    "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj": {
+    "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
+        "projectUniqueName": "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
         "projectName": "albionMarketAnalyzer",
-        "projectPath": "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
+        "projectPath": "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer.csproj",
         "packagesPath": "C:\\Users\\Fletcher\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fletcher\\source\\repos\\albionMarketAnalyzer\\albionMarketAnalyzer\\obj\\",
+        "outputPath": "C:\\Users\\Fletcher\\source\\Git\\AlbionMarketAnalyzer\\albionMarketAnalyzer\\albionMarketAnalyzer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
