@@ -1,0 +1,17 @@
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\albionMarketAnalyzer.exe
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\albionMarketAnalyzer.deps.json
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\albionMarketAnalyzer.runtimeconfig.json
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\albionMarketAnalyzer.dll
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\albionMarketAnalyzer.pdb
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.csproj.AssemblyReference.cache
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.AssemblyInfoInputs.cache
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.AssemblyInfo.cs
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.csproj.CoreCompileInputs.cache
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.csproj.CopyComplete
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.dll
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\refint\albionMarketAnalyzer.dll
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.pdb
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\albionMarketAnalyzer.genruntimeconfig.cache
+C:\Users\Fletcher\source\repos\albionMarketAnalyzer\albionMarketAnalyzer\obj\Debug\net7.0\ref\albionMarketAnalyzer.dll
