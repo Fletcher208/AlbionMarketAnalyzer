@@ -15,8 +15,10 @@ public class Program
             // create an instance of each class
             var itemCreator = new ItemCreator();
             var profitAnalyzer = new ProfitAnalyzer();
-            var getMaterialData = new GetMaterialData();
+            var getMaterialData = new GetMarketData();
             var calculateItemData = new CalculateItemData();
+            var calculateItemDelta = new MarketDelta();
+            var excelExport = new excelExport();
 
             List<string> baseItemIds = new List<string> { "MAIN_AXE", "2H_AXE", "2H_HALBERD", "2H_HALBERD_MORGANA", "2H_SCYTHE_HELL", "2H_AXE_AVALON" };
             List<int> tiers = Enumerable.Range(4, 5).ToList();
@@ -37,12 +39,15 @@ public class Program
 
             // Get Material data
             await getMaterialData.PopulateMaterialData(items);
-            await calculateItemData.CalculateCraftingCosts(items, getMaterialData.MaterialPrices, getMaterialData.MaterialLocations);
+            await getMaterialData.PopulateHistoryMaterialData(items);
+            calculateItemDelta.CalculatePriceDeltas(items);
+            calculateItemData.CalculateCraftingCosts(items);
 
             // Analyze Profit
             var profitAnalysis = profitAnalyzer.FindBestItemToCraft(items);
 
             profitAnalyzer.DisplayResults(profitAnalysis);
+            excelExport.ExportCraftableItemsToExcel(items, baseItemIds);
 
         }
 

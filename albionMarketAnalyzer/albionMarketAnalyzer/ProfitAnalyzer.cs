@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using albionMarketAnalyzer.Objects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,53 +9,67 @@ using static Program;
 
 namespace albionMarketAnalyzer
 {
-        public class ProfitAnalyzer
+    public class ProfitAnalyzer
+    {
+        public CraftableItem FindBestItemToCraft(List<CraftableItem> items)
         {
-            public CraftableItem FindBestItemToCraft(List<CraftableItem> items)
+            CraftableItem bestItem = null;
+            double bestProfitWeighted = 0;
+
+            // Filter valid items only
+            var validItems = items.Where(item => item.IsValid).ToList();
+
+            // Iterate through valid items to find the best one
+            foreach (var item in validItems)
             {
-                CraftableItem bestItem = null;
+                // Get the total sales volume for the item
+                int totalSalesVolume = item.HistoryDataInfoList.Sum(h => h.data.Sum(d => d.item_count));
 
-                // Find the first item with a positive profit margin
-                foreach (var item in items)
+                // Calculate profit margin
+                double profitMargin = item.SellingPrice - item.CraftingCost;
+
+                // Calculate profit margin weighted by sales volume
+                double profitWeighted = profitMargin * totalSalesVolume;
+
+                // Compare with the best profit so far
+                if (profitWeighted > bestProfitWeighted)
                 {
-                    Console.WriteLine($"{item.SellingPrice}, {item.CraftingCost} ");
-                    if (item.SellingPrice - item.CraftingCost > 0)
-                    {
-                        bestItem = item;
-                        break;
-                    }
+                    bestProfitWeighted = profitWeighted;
+                    bestItem = item;
                 }
-
-                // If no items have a positive profit margin, return null
-                if (bestItem == null)
-                    return null;
-
-                foreach (var item in items)
-                {
-                    if ((item.SellingPrice - item.CraftingCost) > (bestItem.SellingPrice - bestItem.CraftingCost))
-                    {
-                        bestItem = item;
-                    }
-                }
-
-                return bestItem;
+                Console.WriteLine($"{item.ItemId}, {item.SellingPrice}, {item.CraftingCost}, {item.PriceDelta}, {item.SellingLocation}");
             }
 
-            public void DisplayResults(CraftableItem bestItem)
-            {
-                if (bestItem == null)
-                {
-                    Console.WriteLine("No craftable items found with a non-zero crafting cost.");
-                    return;
-                }
-
-                Console.WriteLine($"The best item to craft is {bestItem.ItemId} with a crafting cost of {bestItem.CraftingCost}.");
-                Console.WriteLine("Material Details:");
-                foreach (var material in bestItem.RequiredMaterials)
-                {
-                    Console.WriteLine($"\t{material.Key}: {material.Value} units from {bestItem.BestLocations[material.Key]} at a price of {bestItem.BestMaterialPrices[material.Key]} each.");
-                }
-                Console.WriteLine($"The best location to sell {bestItem.ItemId} is {bestItem.BestSellingLocation} for a price of {bestItem.SellingPrice}.");
-            }
+            return bestItem;
         }
+
+        public void DisplayResults(CraftableItem bestItem)
+        {
+            if (bestItem == null)
+            {
+                Console.WriteLine("No craftable items found with a non-zero crafting cost.");
+                return;
+            }
+
+            Console.WriteLine($"The best item to craft is {bestItem.ItemId} with a crafting cost of {bestItem.CraftingCost}.");
+            Console.WriteLine($"Market price delta: {bestItem.PriceDelta}");
+            Console.WriteLine("Material Details:");
+            foreach (var material in bestItem.RequiredMaterials)
+            {
+                if (bestItem.MaterialLocations.ContainsKey(material.Key))
+                {
+                    int materialQuantity = material.Value.Item1;
+                    double materialPrice = material.Value.Item2;
+                    string materialLocation = bestItem.MaterialLocations[material.Key];
+
+                    Console.WriteLine($"\t{material.Key}: {materialQuantity} units from {materialLocation} at a price of {materialPrice} each.");
+                }
+                else
+                {
+                    Console.WriteLine($"No data available for {material.Key}");
+                }
+            }
+            Console.WriteLine($"The best location to sell {bestItem.ItemId} is {bestItem.SellingLocation} for a price of {bestItem.SellingPrice}.");
+        }
+    }
 }

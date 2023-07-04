@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using albionMarketAnalyzer.Objects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,8 @@ namespace albionMarketAnalyzer
                                     materialId += enchantmentLevel;
                                 }
 
-                                item.RequiredMaterials[materialId] = kvp.Value;
+                                // Add the quantity and set the price as zero for now
+                                item.RequiredMaterials[materialId] = (kvp.Value, 0);
                             }
                         }
                         // Add to the list of items
