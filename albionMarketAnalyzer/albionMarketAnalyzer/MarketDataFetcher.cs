@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using albionMarketAnalyzer.Objects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +14,50 @@ namespace albionMarketAnalyzer
         private readonly HttpClient client = new HttpClient();
         private readonly string locations = "BlackMarket,Caerleon,Bridgewatch,Thetford,Lymhurst,Martlock,FortSterling";
 
-        private async Task<List<MarketData>> FetchMarketData(string uri)
+        private async Task<List<MarketDataInfo>> FetchMarketData(string uri)
         {
             string responseBody = await client.GetStringAsync(uri);
-            List<MarketData> marketData = JsonConvert.DeserializeObject<List<MarketData>>(responseBody);
+            List<MarketDataInfo> marketData = JsonConvert.DeserializeObject<List<MarketDataInfo>>(responseBody);
 
             return marketData;
         }
 
-        public Task<List<MarketData>> BuildUri(IEnumerable<string> ids)
+        private async Task<List<HistoryDataInfo>> FetchMarketHistoryData(string uri)
         {
-            var idsBatchString = string.Join(",", ids);
-            return FetchMarketData($"https://east.albion-online-data.com/api/v2/stats/prices/{idsBatchString}.json?locations={locations}&qualities=1");
+            string responseBody = await client.GetStringAsync(uri);
+            List<HistoryDataInfo> marketData = JsonConvert.DeserializeObject<List<HistoryDataInfo>>(responseBody);
+
+            return marketData;
         }
 
-        public Task<List<MarketData>> BuildUri(IEnumerable<CraftableItem> items)
+        public Task<List<HistoryDataInfo>> BuildHistoryUri(IEnumerable<string> items, DateTime startDate, DateTime endDate)
         {
-            var itemBatchString = string.Join(",", items.Select(item => item.ItemId));
-            return FetchMarketData($"https://east.albion-online-data.com/api/v2/stats/prices/{itemBatchString}.json?locations={locations}&qualities=1");
+            var itemIdsBatchString = string.Join(",", items);
+            var startDateString = startDate.ToString("MM-dd-yyyy");
+            var endDateString = endDate.ToString("MM-dd-yyyy");
+
+            return FetchMarketHistoryData($"https://east.albion-online-data.com/api/v2/stats/history/{itemIdsBatchString}.json?date={startDateString}&end_date={endDateString}&locations={locations}&time-scale=24");
+        }
+
+        public Task<List<HistoryDataInfo>> BuildHistoryUri(IEnumerable<CraftableItem> items, DateTime startDate, DateTime endDate)
+        {
+            var itemIdsBatchString = string.Join(",", items.Select(item => item.ItemId));
+            var startDateString = startDate.ToString("MM-dd-yyyy");
+            var endDateString = endDate.ToString("MM-dd-yyyy");
+
+            return FetchMarketHistoryData($"https://east.albion-online-data.com/api/v2/stats/history/{itemIdsBatchString}.json?date={startDateString}&end_date={endDateString}&locations={locations}&time-scale=24");
+        }
+
+        public Task<List<MarketDataInfo>> BuildUri(IEnumerable<string> items)
+        {
+            var itemIdsBatchString = string.Join(",", items);
+            return FetchMarketData($"https://east.albion-online-data.com/api/v2/stats/prices/{itemIdsBatchString}.json?locations={locations}&qualities=1");
+        }
+
+        public Task<List<MarketDataInfo>> BuildUri(IEnumerable<CraftableItem> items)
+        {
+            var itemIdsBatchString = string.Join(",", items.Select(item => item.ItemId));
+            return FetchMarketData($"https://east.albion-online-data.com/api/v2/stats/prices/{itemIdsBatchString}.json?locations={locations}&qualities=1");
         }
     }
 }
